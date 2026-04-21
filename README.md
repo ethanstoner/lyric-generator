@@ -143,33 +143,7 @@ On Windows, you can also use [`start.bat`](./start.bat) after creating the virtu
 
 ## Visual Map
 
-```mermaid
-flowchart TD
-    U[User Pastes Spotify Track URL] --> FE[Frontend UI<br/>frontend/index.html + app.js]
-    FE --> API[FastAPI App<br/>backend/main.py]
-    API --> Q[In-Memory Job Queue]
-    Q --> P[Generation Pipeline<br/>backend/pipeline.py]
-
-    P --> S[Spotify Metadata<br/>services/spotify.py]
-    P --> L[Library Scan<br/>services/library.py]
-    L -->|Match Found| A[Use Local Audio<br/>data/library]
-    L -->|No Match| D[Download Fallback<br/>services/downloader.py + yt-dlp]
-    D --> A
-
-    P --> Y[Lyrics Engine<br/>services/lyrics.py]
-    Y --> LR[LRCLIB Synced or Plain Lyrics]
-    Y --> WX[Optional WhisperX Alignment / Transcription]
-
-    A --> R[Brat Video Recorder<br/>generate_brat.py + Playwright]
-    LR --> R
-    WX --> R
-    R --> F[FFmpeg Muxing]
-    F --> O[Final MP4<br/>data/outputs]
-
-    API --> ST[Status Endpoint<br/>/api/status/{job_id}]
-    API --> DL[Download Endpoint<br/>/api/download/{job_id}]
-    O --> DL
-```
+![Lyric Generator Pipeline](./assets/lyric-generator-map.svg)
 
 ## How The Pipeline Works
 
