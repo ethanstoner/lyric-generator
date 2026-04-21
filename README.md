@@ -141,10 +141,6 @@ Open `http://localhost:8000`.
 
 On Windows, you can also use [`start.bat`](./start.bat) after creating the virtual environment and installing dependencies.
 
-## Visual Map
-
-![Lyric Generator Pipeline](./assets/lyric-generator-map.svg)
-
 ## How The Pipeline Works
 
 1. `backend/services/spotify.py` validates the Spotify URL and fetches track metadata.
