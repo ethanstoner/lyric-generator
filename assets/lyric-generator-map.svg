@@ -1,4 +1,4 @@
-<svg width="1800" height="1120" viewBox="0 0 1800 1120" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="1800" height="1200" viewBox="0 0 1800 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="bg" x1="120" y1="80" x2="1680" y2="1040" gradientUnits="userSpaceOnUse">
       <stop stop-color="#FBF7F0"/>
@@ -33,7 +33,7 @@
     </style>
   </defs>
 
-  <rect width="1800" height="1120" rx="36" fill="url(#bg)"/>
+  <rect width="1800" height="1200" rx="36" fill="url(#bg)"/>
   <circle cx="1570" cy="150" r="120" fill="#FFFFFF" fill-opacity="0.28"/>
   <circle cx="240" cy="940" r="160" fill="#FFFFFF" fill-opacity="0.12"/>
   <circle cx="1470" cy="890" r="180" fill="#FFFFFF" fill-opacity="0.12"/>
@@ -51,7 +51,6 @@
     <circle cx="182" cy="320" r="28" fill="#F1E0CD"/>
     <rect x="166" y="304" width="32" height="24" rx="5" stroke="#8D6244" stroke-width="2.5"/>
     <path d="M174 334H190" stroke="#8D6244" stroke-width="2.5" stroke-linecap="round"/>
-    <path d="M460 276" />
     <text x="224" y="320" class="cardTitle">Frontend</text>
     <text x="152" y="376" class="cardBody">Paste a Spotify track link</text>
     <text x="152" y="408" class="cardBody">Start the generation job</text>
@@ -96,8 +95,8 @@
   <g filter="url(#shadow)">
     <rect x="500" y="610" width="300" height="250" rx="30" fill="url(#card)" stroke="#D8C5AD"/>
     <circle cx="562" cy="670" r="28" fill="#F1E0CD"/>
-    <path d="M546 686C552 670 570 670 578 654C586 670 602 670 610 686" stroke="#8D6244" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <rect x="548" y="648" width="60" height="42" rx="8" stroke="#8D6244" stroke-width="2.5"/>
+    <path d="M548 684L562 654L576 672L592 650L608 684" stroke="#8D6244" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="548" y="650" width="60" height="38" rx="8" stroke="#8D6244" stroke-width="2.5"/>
     <text x="604" y="670" class="cardTitle">Audio Source</text>
     <text x="532" y="726" class="cardBody">Scan local audio library</text>
     <text x="532" y="758" class="cardBody">Fallback to yt-dlp if needed</text>
@@ -119,9 +118,9 @@
   <g filter="url(#shadow)">
     <rect x="1260" y="610" width="420" height="250" rx="30" fill="url(#card)" stroke="#D8C5AD"/>
     <circle cx="1322" cy="670" r="28" fill="#F1E0CD"/>
-    <rect x="1305" y="652" width="34" height="28" rx="5" stroke="#8D6244" stroke-width="2.5"/>
-    <path d="M1298 648L1322 634L1346 648" stroke="#8D6244" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M1300 688H1344" stroke="#8D6244" stroke-width="2.5" stroke-linecap="round"/>
+    <rect x="1306" y="654" width="32" height="26" rx="5" stroke="#8D6244" stroke-width="2.5"/>
+    <path d="M1299 648L1322 634L1345 648" stroke="#8D6244" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M1302 688H1342" stroke="#8D6244" stroke-width="2.5" stroke-linecap="round"/>
     <text x="1364" y="670" class="cardTitle">Recorder + Encoder</text>
     <text x="1292" y="726" class="cardBody">Playwright types on bratgenerator.com</text>
     <text x="1292" y="758" class="cardBody">ffmpeg combines video and audio</text>
@@ -138,9 +137,7 @@
   <path d="M800 735H856" stroke="#84573B" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
   <path d="M1180 735H1236" stroke="#84573B" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
 
-  <path d="M650 860C690 940 845 978 1240 978" stroke="#9B7458" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="10 12" marker-end="url(#arrow)"/>
-  <text x="742" y="954" class="flowNote">audio becomes the soundtrack for the final render</text>
+  <path d="M650 860C760 930 1010 910 1250 790" stroke="#9B7458" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="10 12" marker-end="url(#arrow)"/>
 
-  <path d="M1030 860C1070 930 1180 958 1240 958" stroke="#9B7458" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="10 12" marker-end="url(#arrow)"/>
-  <text x="1090" y="1002" class="flowNote">timed lyrics drive the typing animation</text>
+  <path d="M1030 860C1110 920 1180 890 1250 760" stroke="#9B7458" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="10 12" marker-end="url(#arrow)"/>
 </svg>
