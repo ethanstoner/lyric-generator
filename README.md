@@ -191,7 +191,7 @@ Recommended first push:
 
 ```bash
 git init
-git add README.md .gitignore .env.example backend frontend tests requirements.txt setup.sh start.bat generate.py generate_brat.py zotify_login.py data docs fonts
+git add README.md .gitignore .env.example backend frontend tests requirements.txt setup.sh start.bat generate.py generate_brat.py data fonts
 git commit -m "Prepare lyric generator for GitHub"
 ```
 
