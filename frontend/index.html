@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lyric video generator</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <main>
+        <h1>lyric video generator</h1>
+        <p class="subtitle">paste a spotify link, get a lyric video</p>
+
+        <div class="input-group">
+            <input type="text" id="spotify-url" placeholder="https://open.spotify.com/track/..." autocomplete="off">
+            <button id="generate-btn" onclick="startGeneration()">generate</button>
+        </div>
+
+        <div id="status-section" class="hidden">
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill"></div>
+            </div>
+            <p id="status-text" class="status-text"></p>
+        </div>
+
+        <div id="error-section" class="hidden">
+            <p id="error-text" class="error-text"></p>
+        </div>
+
+        <div id="result-section" class="hidden">
+            <a id="download-link" class="download-btn" download>download mp4</a>
+        </div>
+    </main>
+    <script src="/static/app.js"></script>
+</body>
+</html>
