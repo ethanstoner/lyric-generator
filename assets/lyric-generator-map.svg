@@ -1,133 +1,146 @@
-<svg width="1600" height="960" viewBox="0 0 1600 960" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="1800" height="1120" viewBox="0 0 1800 1120" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="80" y1="60" x2="1520" y2="900" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#F8F3EA"/>
-      <stop offset="0.5" stop-color="#F1E8D7"/>
-      <stop offset="1" stop-color="#E8DCC8"/>
+    <linearGradient id="bg" x1="120" y1="80" x2="1680" y2="1040" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FBF7F0"/>
+      <stop offset="0.55" stop-color="#F3EBDD"/>
+      <stop offset="1" stop-color="#EBDCC5"/>
     </linearGradient>
-    <linearGradient id="cardA" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#FFFDF9"/>
-      <stop offset="1" stop-color="#F4EEE3"/>
-    </linearGradient>
-    <linearGradient id="cardB" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#F8F1E7"/>
-      <stop offset="1" stop-color="#EADBC6"/>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#FFFEFC"/>
+      <stop offset="1" stop-color="#F6EFE4"/>
     </linearGradient>
     <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#D6653C"/>
-      <stop offset="1" stop-color="#AE3F27"/>
+      <stop stop-color="#DA6A41"/>
+      <stop offset="1" stop-color="#B6462A"/>
     </linearGradient>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
-      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#7B5B3E" flood-opacity="0.14"/>
+    <filter id="shadow" x="-20%" y="-20%" width="160%" height="180%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#6F533C" flood-opacity="0.14"/>
     </filter>
-    <marker id="arrow" markerWidth="14" markerHeight="14" refX="10" refY="7" orient="auto">
-      <path d="M2 2L11 7L2 12" fill="none" stroke="#8A5A3B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <marker id="arrow" markerWidth="16" markerHeight="16" refX="12" refY="8" orient="auto">
+      <path d="M2 2L12 8L2 14" fill="none" stroke="#84573B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
     </marker>
     <style>
-      .title { font: 700 44px 'Segoe UI', Arial, sans-serif; fill: #2B1E16; }
-      .subtitle { font: 400 20px 'Segoe UI', Arial, sans-serif; fill: #5F4A3B; }
-      .section { font: 700 18px 'Segoe UI', Arial, sans-serif; letter-spacing: 0.08em; fill: #A04A2A; }
-      .cardTitle { font: 700 28px 'Segoe UI', Arial, sans-serif; fill: #231811; }
-      .cardBody { font: 400 18px 'Segoe UI', Arial, sans-serif; fill: #5B483A; }
-      .small { font: 600 16px 'Segoe UI', Arial, sans-serif; fill: #7A6250; }
+      .title { font: 700 48px 'Segoe UI', Arial, sans-serif; fill: #2B1D14; }
+      .subtitle { font: 400 22px 'Segoe UI', Arial, sans-serif; fill: #5E4B3D; }
+      .section { font: 700 18px 'Segoe UI', Arial, sans-serif; letter-spacing: 0.16em; fill: #A24B2C; }
+      .cardTitle { font: 700 28px 'Segoe UI', Arial, sans-serif; fill: #261911; }
+      .cardBody { font: 400 18px 'Segoe UI', Arial, sans-serif; fill: #5D4A3B; }
+      .cardMeta { font: 600 15px 'Segoe UI', Arial, sans-serif; fill: #876B57; letter-spacing: 0.04em; }
+      .outTitle { font: 700 28px 'Segoe UI', Arial, sans-serif; fill: #FFF9F5; }
+      .outBody { font: 400 18px 'Segoe UI', Arial, sans-serif; fill: #FFE8DD; }
+      .outMeta { font: 600 15px 'Segoe UI', Arial, sans-serif; fill: #FFD4C2; letter-spacing: 0.04em; }
+      .flowNote { font: 600 15px 'Segoe UI', Arial, sans-serif; fill: #795E4B; }
     </style>
   </defs>
 
-  <rect width="1600" height="960" rx="36" fill="url(#bg)"/>
-  <circle cx="1465" cy="130" r="92" fill="#FFFFFF" fill-opacity="0.35"/>
-  <circle cx="180" cy="820" r="122" fill="#FFFFFF" fill-opacity="0.18"/>
-  <circle cx="1320" cy="780" r="150" fill="#FFFFFF" fill-opacity="0.16"/>
+  <rect width="1800" height="1120" rx="36" fill="url(#bg)"/>
+  <circle cx="1570" cy="150" r="120" fill="#FFFFFF" fill-opacity="0.28"/>
+  <circle cx="240" cy="940" r="160" fill="#FFFFFF" fill-opacity="0.12"/>
+  <circle cx="1470" cy="890" r="180" fill="#FFFFFF" fill-opacity="0.12"/>
 
-  <text x="120" y="112" class="title">Lyric Generator Pipeline</text>
-  <text x="120" y="148" class="subtitle">From Spotify link to exported brat-style lyric video</text>
+  <text x="120" y="110" class="title">Lyric Generator</text>
+  <text x="120" y="148" class="subtitle">A readable map of how the app turns a Spotify track into a brat-style lyric video</text>
 
-  <text x="120" y="212" class="section">INPUT</text>
-  <text x="470" y="212" class="section">DISCOVERY</text>
-  <text x="845" y="212" class="section">LYRICS + TIMING</text>
-  <text x="1205" y="212" class="section">EXPORT</text>
+  <text x="140" y="220" class="section">INPUT</text>
+  <text x="560" y="220" class="section">BACKEND</text>
+  <text x="980" y="220" class="section">CONTENT</text>
+  <text x="1400" y="220" class="section">EXPORT</text>
 
   <g filter="url(#shadow)">
-    <rect x="120" y="250" width="250" height="170" rx="28" fill="url(#cardA)"/>
-    <rect x="120" y="250" width="250" height="170" rx="28" stroke="#D9C7AF"/>
-    <text x="150" y="308" class="cardTitle">Frontend</text>
-    <text x="150" y="340" class="cardBody">Paste Spotify track URL</text>
-    <text x="150" y="369" class="cardBody">Start generation job</text>
-    <text x="150" y="404" class="small">frontend/index.html + app.js</text>
+    <rect x="120" y="260" width="300" height="250" rx="30" fill="url(#card)" stroke="#D8C5AD"/>
+    <circle cx="182" cy="320" r="28" fill="#F1E0CD"/>
+    <rect x="166" y="304" width="32" height="24" rx="5" stroke="#8D6244" stroke-width="2.5"/>
+    <path d="M174 334H190" stroke="#8D6244" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M460 276" />
+    <text x="224" y="320" class="cardTitle">Frontend</text>
+    <text x="152" y="376" class="cardBody">Paste a Spotify track link</text>
+    <text x="152" y="408" class="cardBody">Start the generation job</text>
+    <text x="152" y="464" class="cardMeta">frontend/index.html  •  app.js</text>
   </g>
 
   <g filter="url(#shadow)">
-    <rect x="430" y="250" width="300" height="170" rx="28" fill="url(#cardA)"/>
-    <rect x="430" y="250" width="300" height="170" rx="28" stroke="#D9C7AF"/>
-    <text x="460" y="308" class="cardTitle">FastAPI + Queue</text>
-    <text x="460" y="340" class="cardBody">Creates job ID</text>
-    <text x="460" y="369" class="cardBody">Runs background pipeline worker</text>
-    <text x="460" y="404" class="small">backend/main.py + backend/jobs.py</text>
+    <rect x="500" y="260" width="300" height="250" rx="30" fill="url(#card)" stroke="#D8C5AD"/>
+    <circle cx="562" cy="320" r="28" fill="#F1E0CD"/>
+    <rect x="546" y="302" width="32" height="36" rx="6" stroke="#8D6244" stroke-width="2.5"/>
+    <path d="M554 314H570" stroke="#8D6244" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M554 324H570" stroke="#8D6244" stroke-width="2.5" stroke-linecap="round"/>
+    <text x="604" y="320" class="cardTitle">FastAPI</text>
+    <text x="532" y="376" class="cardBody">Creates a job ID</text>
+    <text x="532" y="408" class="cardBody">Queues the background worker</text>
+    <text x="532" y="464" class="cardMeta">backend/main.py  •  backend/jobs.py</text>
   </g>
 
   <g filter="url(#shadow)">
-    <rect x="790" y="250" width="300" height="170" rx="28" fill="url(#cardA)"/>
-    <rect x="790" y="250" width="300" height="170" rx="28" stroke="#D9C7AF"/>
-    <text x="820" y="308" class="cardTitle">Spotify Metadata</text>
-    <text x="820" y="340" class="cardBody">Validate track URL</text>
-    <text x="820" y="369" class="cardBody">Fetch title, artist, duration</text>
-    <text x="820" y="404" class="small">backend/services/spotify.py</text>
+    <rect x="880" y="260" width="300" height="250" rx="30" fill="url(#card)" stroke="#D8C5AD"/>
+    <circle cx="942" cy="320" r="28" fill="#F1E0CD"/>
+    <path d="M934 338V309L960 317V346" stroke="#8D6244" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="930" cy="348" r="6" stroke="#8D6244" stroke-width="2.5"/>
+    <circle cx="956" cy="354" r="6" stroke="#8D6244" stroke-width="2.5"/>
+    <text x="984" y="320" class="cardTitle">Spotify</text>
+    <text x="912" y="376" class="cardBody">Validate the track URL</text>
+    <text x="912" y="408" class="cardBody">Fetch title, artist, duration</text>
+    <text x="912" y="464" class="cardMeta">services/spotify.py</text>
   </g>
 
   <g filter="url(#shadow)">
-    <rect x="1150" y="250" width="320" height="170" rx="28" fill="url(#cardA)"/>
-    <rect x="1150" y="250" width="320" height="170" rx="28" stroke="#D9C7AF"/>
-    <text x="1180" y="308" class="cardTitle">Video Export</text>
-    <text x="1180" y="340" class="cardBody">Record in Playwright</text>
-    <text x="1180" y="369" class="cardBody">Mux audio + video with ffmpeg</text>
-    <text x="1180" y="404" class="small">generate_brat.py + data/outputs</text>
+    <rect x="1260" y="260" width="420" height="250" rx="30" fill="url(#accent)" stroke="#96351F" stroke-opacity="0.35"/>
+    <circle cx="1322" cy="320" r="28" fill="#F6B9A2" fill-opacity="0.32"/>
+    <path d="M1304 310H1340V338H1304V310Z" stroke="#FFF2EB" stroke-width="2.5"/>
+    <path d="M1310 346H1334" stroke="#FFF2EB" stroke-width="2.5" stroke-linecap="round"/>
+    <text x="1364" y="320" class="outTitle">Final Output</text>
+    <text x="1292" y="376" class="outBody">Playable MP4 lyric video</text>
+    <text x="1292" y="408" class="outBody">Status polling and download endpoint</text>
+    <text x="1292" y="464" class="outMeta">data/outputs  •  /api/status  •  /api/download</text>
   </g>
 
   <g filter="url(#shadow)">
-    <rect x="430" y="500" width="300" height="250" rx="28" fill="url(#cardB)"/>
-    <rect x="430" y="500" width="300" height="250" rx="28" stroke="#D1B89A"/>
-    <text x="460" y="558" class="cardTitle">Audio Source</text>
-    <text x="460" y="593" class="cardBody">1. Scan local library</text>
-    <text x="460" y="622" class="cardBody">2. Match track metadata</text>
-    <text x="460" y="651" class="cardBody">3. Fallback to yt-dlp download</text>
-    <text x="460" y="692" class="small">services/library.py</text>
-    <text x="460" y="716" class="small">services/downloader.py</text>
+    <rect x="500" y="610" width="300" height="250" rx="30" fill="url(#card)" stroke="#D8C5AD"/>
+    <circle cx="562" cy="670" r="28" fill="#F1E0CD"/>
+    <path d="M546 686C552 670 570 670 578 654C586 670 602 670 610 686" stroke="#8D6244" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="548" y="648" width="60" height="42" rx="8" stroke="#8D6244" stroke-width="2.5"/>
+    <text x="604" y="670" class="cardTitle">Audio Source</text>
+    <text x="532" y="726" class="cardBody">Scan local audio library</text>
+    <text x="532" y="758" class="cardBody">Fallback to yt-dlp if needed</text>
+    <text x="532" y="814" class="cardMeta">services/library.py  •  downloader.py</text>
   </g>
 
   <g filter="url(#shadow)">
-    <rect x="790" y="500" width="300" height="250" rx="28" fill="url(#cardB)"/>
-    <rect x="790" y="500" width="300" height="250" rx="28" stroke="#D1B89A"/>
-    <text x="820" y="558" class="cardTitle">Lyric Timing</text>
-    <text x="820" y="593" class="cardBody">LRCLIB synced lyrics</text>
-    <text x="820" y="622" class="cardBody">Optional WhisperX alignment</text>
-    <text x="820" y="651" class="cardBody">Auto CPU / GPU fallback</text>
-    <text x="820" y="692" class="small">services/lyrics.py</text>
-    <text x="820" y="716" class="small">auto-detect runtime settings</text>
+    <rect x="880" y="610" width="300" height="250" rx="30" fill="url(#card)" stroke="#D8C5AD"/>
+    <circle cx="942" cy="670" r="28" fill="#F1E0CD"/>
+    <path d="M922 681C928 665 934 659 942 659C950 659 956 665 962 681" stroke="#8D6244" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M918 690H966" stroke="#8D6244" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M924 700H960" stroke="#8D6244" stroke-width="2.5" stroke-linecap="round"/>
+    <text x="984" y="670" class="cardTitle">Lyrics + Timing</text>
+    <text x="912" y="726" class="cardBody">LRCLIB lyrics first</text>
+    <text x="912" y="758" class="cardBody">WhisperX align / transcribe</text>
+    <text x="912" y="814" class="cardMeta">services/lyrics.py  •  auto runtime</text>
   </g>
 
   <g filter="url(#shadow)">
-    <rect x="1150" y="500" width="320" height="250" rx="28" fill="url(#accent)"/>
-    <rect x="1150" y="500" width="320" height="250" rx="28" stroke="#96351F" stroke-opacity="0.4"/>
-    <text x="1180" y="558" class="cardTitle" fill="#FFF8F3">Final Output</text>
-    <text x="1180" y="593" class="cardBody" fill="#FBE9DF">Brat-style lyric video</text>
-    <text x="1180" y="622" class="cardBody" fill="#FBE9DF">Downloadable MP4</text>
-    <text x="1180" y="651" class="cardBody" fill="#FBE9DF">Job status + file endpoint</text>
-    <text x="1180" y="692" class="small" fill="#F9D5C7">/api/status/&lt;job_id&gt;</text>
-    <text x="1180" y="716" class="small" fill="#F9D5C7">/api/download/&lt;job_id&gt;</text>
+    <rect x="1260" y="610" width="420" height="250" rx="30" fill="url(#card)" stroke="#D8C5AD"/>
+    <circle cx="1322" cy="670" r="28" fill="#F1E0CD"/>
+    <rect x="1305" y="652" width="34" height="28" rx="5" stroke="#8D6244" stroke-width="2.5"/>
+    <path d="M1298 648L1322 634L1346 648" stroke="#8D6244" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M1300 688H1344" stroke="#8D6244" stroke-width="2.5" stroke-linecap="round"/>
+    <text x="1364" y="670" class="cardTitle">Recorder + Encoder</text>
+    <text x="1292" y="726" class="cardBody">Playwright types on bratgenerator.com</text>
+    <text x="1292" y="758" class="cardBody">ffmpeg combines video and audio</text>
+    <text x="1292" y="814" class="cardMeta">generate_brat.py  •  Playwright  •  ffmpeg</text>
   </g>
 
-  <path d="M370 335H408" stroke="#8A5A3B" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
-  <path d="M730 335H768" stroke="#8A5A3B" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
-  <path d="M1090 335H1128" stroke="#8A5A3B" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <path d="M420 385H476" stroke="#84573B" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <path d="M800 385H856" stroke="#84573B" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <path d="M1180 385H1236" stroke="#84573B" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
 
-  <path d="M580 420V475" stroke="#8A5A3B" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
-  <path d="M940 420V475" stroke="#8A5A3B" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <path d="M650 510V580" stroke="#84573B" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <path d="M1030 510V580" stroke="#84573B" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
 
-  <path d="M730 625H768" stroke="#8A5A3B" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
-  <path d="M1090 625H1128" stroke="#8A5A3B" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <path d="M800 735H856" stroke="#84573B" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <path d="M1180 735H1236" stroke="#84573B" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
 
-  <path d="M583 751C610 820 700 848 845 848H1185" stroke="#8A5A3B" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="10 10" marker-end="url(#arrow)"/>
-  <text x="655" y="830" class="small">audio feeds recording + export</text>
+  <path d="M650 860C690 940 845 978 1240 978" stroke="#9B7458" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="10 12" marker-end="url(#arrow)"/>
+  <text x="742" y="954" class="flowNote">audio becomes the soundtrack for the final render</text>
 
-  <path d="M943 751C970 820 1060 848 1185 848" stroke="#8A5A3B" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="10 10" marker-end="url(#arrow)"/>
-  <text x="980" y="875" class="small">timed lyrics drive on-screen typing</text>
+  <path d="M1030 860C1070 930 1180 958 1240 958" stroke="#9B7458" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="10 12" marker-end="url(#arrow)"/>
+  <text x="1090" y="1002" class="flowNote">timed lyrics drive the typing animation</text>
 </svg>
