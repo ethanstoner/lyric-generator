@@ -26,6 +26,7 @@ def test_parse_lrc_end_times():
     assert abs(lines[1].end - 16.0) < 0.01
     assert lines[2].end > lines[2].start
 
+@pytest.mark.live
 def test_fetch_lrclib_real():
     result = fetch_lrclib("Blinding Lights", "The Weeknd", 200)
     if result is not None:

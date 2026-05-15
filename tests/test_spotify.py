@@ -21,6 +21,7 @@ def test_extract_track_id_garbage():
     with pytest.raises(ValueError):
         extract_track_id("not a url")
 
+@pytest.mark.live
 def test_fetch_metadata_real():
     meta = fetch_metadata("0VjIjW4GlUZAMYd2vXMi3b")
     assert meta.track_id == "0VjIjW4GlUZAMYd2vXMi3b"

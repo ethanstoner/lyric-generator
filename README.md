@@ -1,5 +1,9 @@
 # Lyric Generator
 
+[![CI](https://github.com/ethanstoner/lyric-generator/actions/workflows/ci.yml/badge.svg)](https://github.com/ethanstoner/lyric-generator/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
+
 Generate brat-style lyric videos from a Spotify track link.
 
 This project runs a local FastAPI app with a small frontend. You paste a
@@ -167,3 +171,7 @@ valid Spotify credentials.
 - Background jobs are in-memory only; restarting the server loses job status.
   Jobs are pruned after `JOB_TTL_HOURS`.
 - Output filenames are generated from song metadata and may be long.
+
+## License
+
+Released under the [MIT License](LICENSE).
