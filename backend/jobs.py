@@ -13,7 +13,7 @@ def create_job() -> str:
         )
     return job_id
 
-def update_job(job_id: str, status: str = None, progress: int = None, step: str = None, error: str = None, filename: str = None):
+def update_job(job_id: str, status: str = None, progress: int = None, step: str = None, error: str = None):
     with _lock:
         if job_id not in _jobs:
             return
@@ -26,8 +26,6 @@ def update_job(job_id: str, status: str = None, progress: int = None, step: str 
             job.step = step
         if error is not None:
             job.error = error
-        if filename is not None:
-            job.filename = filename
 
 def get_job(job_id: str) -> JobStatus | None:
     with _lock:

@@ -1,36 +1,33 @@
 #!/bin/bash
 set -e
+PYTHON="<home>/AppData/Local/Programs/Python/Python312/python.exe"
 
-if command -v python3 >/dev/null 2>&1; then
-    PYTHON_BIN="python3"
-elif command -v python >/dev/null 2>&1; then
-    PYTHON_BIN="python"
-else
-    echo "Python was not found on PATH."
-    exit 1
-fi
+# Create venv
+$PYTHON -m venv venv
+source venv/Scripts/activate
 
-"$PYTHON_BIN" -m venv venv
-
-if [ -f "venv/Scripts/activate" ]; then
-    # Git Bash / Windows venv layout
-    source venv/Scripts/activate
-else
-    source venv/bin/activate
-fi
-
-python -m pip install --upgrade pip
+# Install dependencies
 pip install -r requirements.txt
-python -m playwright install chromium
 
-if ! command -v ffmpeg >/dev/null 2>&1; then
-    echo "WARNING: ffmpeg not found on PATH. Install it before rendering videos."
+# Download Inter font if not present
+if [ ! -f "fonts/Inter-Regular.ttf" ]; then
+    mkdir -p fonts
+    curl -L -o /tmp/inter.zip \
+        "https://github.com/rsms/inter/releases/download/v4.1/Inter-4.1.zip"
+    unzip -j /tmp/inter.zip "*/Inter-Regular.ttf" -d fonts/ 2>/dev/null || \
+    unzip -j /tmp/inter.zip "Inter-Regular.ttf" -d fonts/ 2>/dev/null
+    rm -f /tmp/inter.zip
+    if ! python -c "from PIL import ImageFont; ImageFont.truetype('fonts/Inter-Regular.ttf', 48)" 2>/dev/null; then
+        echo "WARNING: Font extraction failed. Download Inter manually from https://rsms.me/inter/ and place Inter-Regular.ttf in fonts/"
+    else
+        echo "Downloaded Inter-Regular.ttf"
+    fi
 fi
 
-if ! command -v yt-dlp >/dev/null 2>&1; then
-    echo "WARNING: yt-dlp not found on PATH. Auto-download fallback will not work."
+# Verify ffmpeg
+if ! command -v ffmpeg &> /dev/null; then
+    echo "WARNING: ffmpeg not found on PATH. Install it before rendering."
 fi
 
-echo "Setup complete."
-echo "Copy .env.example to .env and add your Spotify API credentials."
-echo "Run the app with: python -m uvicorn backend.main:app --reload --port 8000"
+echo "Setup complete. Activate venv with: source venv/Scripts/activate"
+echo "Run server with: uvicorn backend.main:app --reload --port 8000"

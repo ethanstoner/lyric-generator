@@ -76,18 +76,12 @@ async def download(job_id: str):
         raise HTTPException(status_code=404, detail="Job not found")
     if job.status != "complete":
         raise HTTPException(status_code=400, detail=f"Job not complete: {job.status}")
-    # Use the proper filename stored by the pipeline
-    if job.filename:
-        output_path = OUTPUTS_DIR / f"{job.filename}.mp4"
-        download_name = f"{job.filename}.mp4"
-    else:
-        output_path = OUTPUTS_DIR / f"{job_id}.mp4"
-        download_name = f"lyric-video-{job_id}.mp4"
+    output_path = OUTPUTS_DIR / f"{job_id}.mp4"
     if not output_path.exists():
         raise HTTPException(status_code=404, detail="Output file not found")
     return FileResponse(
         str(output_path), media_type="video/mp4",
-        filename=download_name,
+        filename=f"lyric-video-{job_id}.mp4",
     )
 
 

@@ -46,4 +46,3 @@ class JobStatus(BaseModel):
     progress: int  # 0-100
     step: str
     error: str | None = None
-    filename: str | None = None

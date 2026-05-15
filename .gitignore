@@ -1,17 +1,15 @@
 __pycache__/
 *.pyc
 .env
-.env.*
-!.env.example
-.cache
-.pytest_cache/
-.playwright-mcp/
-credentials.json
-CLAUDE.md
-zotify_login.py
-docs/superpowers/
 venv/
-.venv/
+
+# Auth tokens / secrets (Spotify, Zotify)
+credentials.json
+.cache
+.cache/
+
+# Tooling junk
+.playwright-mcp/
 data/library/*
 !data/library/.gitkeep
 data/outputs/*
@@ -24,4 +22,3 @@ data/temp/*
 *.flac
 *.m4a
 *.ogg
-*.webm

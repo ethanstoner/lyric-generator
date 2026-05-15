@@ -1,11 +1,11 @@
-import re
-import asyncio
 from backend.jobs import update_job
 from backend.services.spotify import extract_track_id, fetch_metadata
 from backend.services.library import scan_library, match_track, save_index
 from backend.services.lyrics import get_lyrics
+from backend.services.layout import generate_layout
+from backend.services.render import render_video
 from backend.services.downloader import download_track
-from backend.config import LIBRARY_DIR, OUTPUTS_DIR
+from backend.config import LIBRARY_DIR
 
 
 def run_pipeline(job_id: str, spotify_url: str):
@@ -38,6 +38,7 @@ def run_pipeline(job_id: str, spotify_url: str):
             match = match_track(metadata, index)
             if match is None:
                 # Match by most recent file as fallback
+                from pathlib import Path
                 audio_path = str(downloaded)
             else:
                 audio_path = match.audio_path
@@ -53,29 +54,21 @@ def run_pipeline(job_id: str, spotify_url: str):
             audio_path=audio_path,
         )
 
-        # Step 4: Record brat video via bratgenerator.com
-        update_job(job_id, status="recording", progress=40, step="Recording brat-style video...")
-
+        # Step 4: Layout
+        update_job(job_id, status="generating_layout", progress=50, step="Generating lyric layout...")
         total_duration = metadata.duration_ms / 1000.0
+        frames = generate_layout(lines, total_duration)
 
-        # Build proper filename: "Title - Artist #hashtags.mp4"
-        artist = metadata.artists[0] if metadata.artists else "Unknown"
-        artist_tag = re.sub(r'[^a-zA-Z0-9]', '', artist).lower()
-        safe_title = metadata.title.replace("/", "-").replace("\\", "-")
-        safe_artist = " & ".join(metadata.artists).replace("/", "-").replace("\\", "-")
-        filename = f"{safe_title} - {safe_artist} #musicvibes #lyricssong #slowedaudios #audios #{artist_tag}"
-        output_path = OUTPUTS_DIR / f"{filename}.mp4"
+        # Step 5: Render
+        update_job(job_id, status="rendering", progress=55, step="Rendering video...")
 
         def on_progress(pct):
-            overall = 40 + int(pct * 0.60)
-            update_job(job_id, progress=overall, step=f"Recording video... {pct}%")
+            overall = 55 + int(pct * 0.45)
+            update_job(job_id, progress=overall, step=f"Rendering video... {pct}%")
 
-        # Import and run the brat recorder (bratgenerator.com via Playwright)
-        from generate_brat import record_brat_video
-        asyncio.run(record_brat_video(lines, audio_path, output_path, total_duration, on_progress=on_progress))
+        render_video(frames, audio_path, job_id, on_progress=on_progress)
 
-        # Store the filename so download endpoint can find it
-        update_job(job_id, status="complete", progress=100, step="Done!", filename=filename)
+        update_job(job_id, status="complete", progress=100, step="Done!")
 
     except Exception as e:
         update_job(job_id, status="error", progress=0, step="Error", error=str(e))
