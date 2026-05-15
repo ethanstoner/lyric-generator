@@ -1,7 +1,10 @@
+import logging
 import os
 import subprocess
 from pathlib import Path
 from backend.config import LIBRARY_DIR
+
+logger = logging.getLogger(__name__)
 
 
 def download_track(spotify_url: str, artist: str, title: str) -> Path | None:
@@ -40,6 +43,17 @@ def download_track(spotify_url: str, artist: str, title: str) -> Path | None:
         if mp3s:
             return mp3s[0]
 
+        logger.error(
+            "yt-dlp produced no mp3 for '%s - %s'. exit=%s stderr=%s",
+            artist, title, result.returncode, (result.stderr or "")[-800:],
+        )
         return None
-    except Exception:
+    except FileNotFoundError:
+        logger.error("yt-dlp not found on PATH — cannot download audio.")
+        return None
+    except subprocess.TimeoutExpired:
+        logger.error("yt-dlp timed out downloading '%s - %s'.", artist, title)
+        return None
+    except Exception as e:
+        logger.error("Unexpected download error for '%s - %s': %s", artist, title, e)
         return None

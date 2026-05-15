@@ -1,4 +1,5 @@
 import asyncio
+import logging
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -6,21 +7,34 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from backend.config import OUTPUTS_DIR, LIBRARY_DIR, PROJECT_ROOT
-from backend.jobs import create_job, get_job
+from backend.jobs import create_job, get_job, update_job
 from backend.pipeline import run_pipeline
 from backend.services.library import scan_library
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+)
+logger = logging.getLogger(__name__)
 
 _queue: asyncio.Queue = asyncio.Queue()
 
 
 async def _job_worker():
+    """Process queued jobs sequentially. A crash in one job must never kill
+    the worker or wedge the queue — it is logged and the job marked error."""
     while True:
         job_id, spotify_url = await _queue.get()
         try:
             await asyncio.to_thread(run_pipeline, job_id, spotify_url)
-        except Exception:
-            pass
-        _queue.task_done()
+        except Exception as e:
+            # run_pipeline handles its own errors, but defend against anything
+            # escaping (e.g. thread-dispatch failure) so the queue keeps moving.
+            logger.exception("Job %s crashed outside pipeline handler", job_id)
+            update_job(job_id, status="error", progress=0, step="Error",
+                       error=f"Unexpected worker error: {e}")
+        finally:
+            _queue.task_done()
 
 
 @asynccontextmanager

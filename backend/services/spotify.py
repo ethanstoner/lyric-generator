@@ -1,3 +1,4 @@
+import logging
 import re
 from urllib.parse import urlparse
 import spotipy
@@ -5,11 +6,18 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from backend.config import settings
 from backend.models import SpotifyMetadata
 
+logger = logging.getLogger(__name__)
+
 _sp: spotipy.Spotify | None = None
 
 def _get_client() -> spotipy.Spotify:
     global _sp
     if _sp is None:
+        if not settings.spotify_client_id or not settings.spotify_client_secret:
+            raise RuntimeError(
+                "Spotify credentials missing. Set SPOTIFY_CLIENT_ID and "
+                "SPOTIFY_CLIENT_SECRET in your .env file."
+            )
         auth_manager = SpotifyClientCredentials(
             client_id=settings.spotify_client_id,
             client_secret=settings.spotify_client_secret,
@@ -30,7 +38,20 @@ def extract_track_id(url: str) -> str:
 
 def fetch_metadata(track_id: str) -> SpotifyMetadata:
     sp = _get_client()
-    track = sp.track(track_id)
+    try:
+        track = sp.track(track_id)
+    except spotipy.SpotifyException as e:
+        logger.error("Spotify API error for track %s: %s", track_id, e)
+        if e.http_status == 401:
+            raise RuntimeError("Spotify authentication failed — check your credentials.") from e
+        if e.http_status == 404:
+            raise RuntimeError(f"Spotify track not found: {track_id}") from e
+        if e.http_status == 429:
+            raise RuntimeError("Spotify rate limit hit — try again shortly.") from e
+        raise RuntimeError(f"Spotify API error: {e}") from e
+    except Exception as e:
+        logger.error("Could not reach Spotify: %s", e)
+        raise RuntimeError(f"Could not reach Spotify: {e}") from e
     isrc = None
     external_ids = track.get("external_ids", {})
     if "isrc" in external_ids:

@@ -101,10 +101,12 @@ def render_video(frames: list[FrameInstruction], audio_path: str, job_id: str,
         concat_path = frame_dir / "concat.txt"
         with open(concat_path, "w") as f:
             for filename, duration in concat_entries:
-                f.write(f"file '{filename}'\n")
+                safe = filename.replace("'", r"'\''")
+                f.write(f"file '{safe}'\n")
                 f.write(f"duration {duration:.6f}\n")
             if concat_entries:
-                f.write(f"file '{concat_entries[-1][0]}'\n")
+                safe = concat_entries[-1][0].replace("'", r"'\''")
+                f.write(f"file '{safe}'\n")
 
         cmd = [
             "ffmpeg", "-y",
@@ -115,9 +117,17 @@ def render_video(frames: list[FrameInstruction], audio_path: str, job_id: str,
             "-shortest",
             str(output_path),
         ]
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
+        try:
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
+        except FileNotFoundError:
+            raise RuntimeError(
+                "ffmpeg not found on PATH. Install ffmpeg and ensure it is on "
+                "PATH to render videos."
+            )
+        except subprocess.TimeoutExpired:
+            raise RuntimeError("ffmpeg timed out (>600s) while encoding the video.")
         if result.returncode != 0:
-            raise RuntimeError(f"FFmpeg failed: {result.stderr[-500:]}")
+            raise RuntimeError(f"FFmpeg failed (exit {result.returncode}): {result.stderr}")
         if on_progress:
             on_progress(100)
         return output_path

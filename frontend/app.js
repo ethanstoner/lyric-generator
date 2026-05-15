@@ -1,5 +1,6 @@
 const API_BASE = window.location.origin;
-let pollInterval = null;
+let pollTimer = null;
+let pollCancelled = false;
 
 async function startGeneration() {
     const urlInput = document.getElementById('spotify-url');
@@ -29,8 +30,12 @@ async function startGeneration() {
         });
 
         if (!resp.ok) {
-            const data = await resp.json();
-            throw new Error(data.detail || 'Failed to start generation');
+            let detail = 'Failed to start generation';
+            try {
+                const data = await resp.json();
+                detail = data.detail || detail;
+            } catch (_) { /* non-JSON error body */ }
+            throw new Error(detail);
         }
 
         const { job_id } = await resp.json();
@@ -53,9 +58,16 @@ function pollStatus(jobId) {
     const errorText = document.getElementById('error-text');
     const downloadLink = document.getElementById('download-link');
 
-    if (pollInterval) clearInterval(pollInterval);
+    if (pollTimer) clearTimeout(pollTimer);
+    pollCancelled = false;
 
-    pollInterval = setInterval(async () => {
+    // Progressive backoff: start at 2s, ease up to 5s to cut request volume
+    // on long jobs without hurting perceived responsiveness early on.
+    let delay = 2000;
+    const MAX_DELAY = 5000;
+
+    const tick = async () => {
+        if (pollCancelled) return;
         try {
             const resp = await fetch(`${API_BASE}/api/status/${jobId}`);
             const job = await resp.json();
@@ -64,24 +76,31 @@ function pollStatus(jobId) {
             statusText.textContent = job.step || job.status;
 
             if (job.status === 'complete') {
-                clearInterval(pollInterval);
+                pollCancelled = true;
                 statusSection.classList.add('hidden');
                 resultSection.classList.remove('hidden');
                 downloadLink.href = `${API_BASE}/api/download/${jobId}`;
                 btn.disabled = false;
-            } else if (job.status === 'error') {
-                clearInterval(pollInterval);
+                return;
+            }
+            if (job.status === 'error') {
+                pollCancelled = true;
                 statusSection.classList.add('hidden');
                 errorText.textContent = job.error || 'An error occurred';
                 errorSection.classList.remove('hidden');
                 btn.disabled = false;
+                return;
             }
+            delay = Math.min(delay + 500, MAX_DELAY);
+            pollTimer = setTimeout(tick, delay);
         } catch (err) {
-            clearInterval(pollInterval);
+            pollCancelled = true;
             errorText.textContent = 'Lost connection to server';
             errorSection.classList.remove('hidden');
             statusSection.classList.add('hidden');
             btn.disabled = false;
         }
-    }, 2000);
+    };
+
+    pollTimer = setTimeout(tick, delay);
 }
