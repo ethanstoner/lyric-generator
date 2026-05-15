@@ -1,33 +1,44 @@
-#!/bin/bash
-set -e
-PYTHON="<home>/AppData/Local/Programs/Python/Python312/python.exe"
+#!/usr/bin/env bash
+# Bootstrap a local dev environment.
+#   bash setup.sh                # core + Whisper (full functionality)
+#   bash setup.sh --no-whisper   # skip the heavy torch/Whisper stack
+set -euo pipefail
+cd "$(dirname "$0")"
 
-# Create venv
-$PYTHON -m venv venv
-source venv/Scripts/activate
+PYTHON="${PYTHON:-python3}"
+command -v "$PYTHON" >/dev/null 2>&1 || PYTHON=python
 
-# Install dependencies
-pip install -r requirements.txt
-
-# Download Inter font if not present
-if [ ! -f "fonts/Inter-Regular.ttf" ]; then
-    mkdir -p fonts
-    curl -L -o /tmp/inter.zip \
-        "https://github.com/rsms/inter/releases/download/v4.1/Inter-4.1.zip"
-    unzip -j /tmp/inter.zip "*/Inter-Regular.ttf" -d fonts/ 2>/dev/null || \
-    unzip -j /tmp/inter.zip "Inter-Regular.ttf" -d fonts/ 2>/dev/null
-    rm -f /tmp/inter.zip
-    if ! python -c "from PIL import ImageFont; ImageFont.truetype('fonts/Inter-Regular.ttf', 48)" 2>/dev/null; then
-        echo "WARNING: Font extraction failed. Download Inter manually from https://rsms.me/inter/ and place Inter-Regular.ttf in fonts/"
-    else
-        echo "Downloaded Inter-Regular.ttf"
-    fi
+EXTRAS=".[whisper,test]"
+if [ "${1:-}" = "--no-whisper" ]; then
+    EXTRAS=".[test]"
 fi
 
-# Verify ffmpeg
-if ! command -v ffmpeg &> /dev/null; then
-    echo "WARNING: ffmpeg not found on PATH. Install it before rendering."
+echo "Creating virtual environment (venv/) ..."
+"$PYTHON" -m venv venv
+
+# Resolve the venv python cross-platform (POSIX: bin, Windows: Scripts).
+if [ -x "venv/bin/python" ]; then
+    VENV_PY="venv/bin/python"
+else
+    VENV_PY="venv/Scripts/python.exe"
 fi
 
-echo "Setup complete. Activate venv with: source venv/Scripts/activate"
-echo "Run server with: uvicorn backend.main:app --reload --port 8000"
+echo "Installing dependencies ($EXTRAS) ..."
+"$VENV_PY" -m pip install --upgrade pip
+"$VENV_PY" -m pip install -e "$EXTRAS"
+
+# The bundled font (fonts/Inter-Regular.ttf) ships with the repo — no download.
+if ! "$VENV_PY" -c "from PIL import ImageFont; ImageFont.truetype('fonts/Inter-Regular.ttf', 48)" 2>/dev/null; then
+    echo "WARNING: fonts/Inter-Regular.ttf missing or unreadable."
+fi
+
+command -v ffmpeg >/dev/null 2>&1 || echo "WARNING: ffmpeg not found on PATH — required for rendering."
+
+cat <<'EOF'
+
+Setup complete.
+  Activate:  source venv/bin/activate   (Windows: venv\Scripts\activate)
+  Run web:   uvicorn backend.main:app --reload --port 8000
+  Run CLI:   python generate.py <spotify_url>
+  Test:      pytest -m "not live"
+EOF

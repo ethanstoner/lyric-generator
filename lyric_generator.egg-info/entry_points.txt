@@ -1,0 +1,2 @@
+[console_scripts]
+lyric-generator = generate:main

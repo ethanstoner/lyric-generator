@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lyric-generator"
+version = "0.1.0"
+description = "Generate brat-style lyric videos from a Spotify link (FastAPI + Whisper + Pillow + ffmpeg)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "Ethan Stoner" }]
+keywords = ["spotify", "lyrics", "video", "whisper", "ffmpeg", "fastapi"]
+
+# Core runtime deps. Whisper is intentionally optional (see [whisper] extra):
+# the pipeline degrades gracefully to LRCLIB lyrics when it is absent.
+dependencies = [
+    "fastapi==0.115.0",
+    "uvicorn[standard]==0.30.0",
+    "spotipy==2.24.0",
+    "Pillow==10.4.0",
+    "mutagen==1.47.0",
+    "requests==2.32.3",
+    "pydantic-settings==2.5.0",
+]
+
+[project.optional-dependencies]
+# Local word-level transcription (pulls torch). Not needed to run the test
+# suite, which never exercises Whisper.
+whisper = ["openai-whisper==20240930"]
+test = ["pytest==8.3.0"]
+
+[project.urls]
+Repository = "https://github.com/ethanstoner/lyric-generator"
+
+[project.scripts]
+lyric-generator = "generate:main"
+
+[tool.setuptools]
+py-modules = ["generate"]
+
+[tool.setuptools.packages.find]
+include = ["backend*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "live: test hits a live external service (Spotify/LRCLIB); skipped in CI",
+]

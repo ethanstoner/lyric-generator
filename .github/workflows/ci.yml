@@ -19,11 +19,12 @@ jobs:
           cache: pip
 
       - name: Install dependencies
-        # Test-only deps. openai-whisper/torch are intentionally excluded:
-        # Whisper is imported lazily at runtime and no test exercises it.
+        # Core + test extra only. The optional [whisper] extra (torch) is
+        # intentionally excluded: Whisper is a lazy runtime import and no
+        # test exercises it.
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements-ci.txt
+          pip install -e ".[test]"
 
       - name: Run tests
         run: pytest -m "not live" -v
