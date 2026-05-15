@@ -19,8 +19,14 @@ jobs:
           cache: pip
 
       - name: Install dependencies
+        env:
+          # openai-whisper is an sdist that imports pkg_resources at build
+          # time; setuptools>=81 removed it. Constrain the (isolated) build
+          # env's setuptools so the wheel builds on Python 3.12.
+          PIP_CONSTRAINT: ${{ github.workspace }}/ci-constraints.txt
         run: |
-          python -m pip install --upgrade pip setuptools wheel
+          echo "setuptools<81" > ci-constraints.txt
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
 
       - name: Run tests
