@@ -14,8 +14,8 @@ using `ffmpeg` into an `.mp4`.
 
 ## Demo
 
-Real pipeline output — Radiohead, *No Surprises* (1080×1920, word-by-word
-typewriter timing):
+Real pipeline output — Radiohead, *No Surprises* (1080×1920, character-by-
+character typewriter timing synced to the vocal):
 
 <p align="center">
   <img src="assets/demo.gif" width="240" alt="Lyric video demo: Radiohead - No Surprises" />
