@@ -3,6 +3,12 @@ __pycache__/
 .env
 venv/
 
+# Python build artifacts
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+
 # Auth tokens / secrets (Spotify, Zotify)
 credentials.json
 .cache
