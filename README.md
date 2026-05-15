@@ -12,6 +12,34 @@ audio, transcribes word-level lyric timing with Whisper (LRCLIB as fallback),
 renders the animated text to frames with Pillow, and muxes them with the song
 using `ffmpeg` into an `.mp4`.
 
+## Demo
+
+Real pipeline output — Radiohead, *No Surprises* (1080×1920, word-by-word
+typewriter timing):
+
+<p align="center">
+  <img src="assets/demo.gif" width="240" alt="Lyric video demo: Radiohead - No Surprises" />
+</p>
+
+## Pipeline At A Glance
+
+```mermaid
+flowchart LR
+    A([Spotify track URL]) --> B[Spotify API<br/>metadata]
+    B --> C{Local audio<br/>in library?}
+    C -- yes --> D[Use local file]
+    C -- no --> E[yt-dlp<br/>download MP3]
+    D --> F[Whisper<br/>word-level timing]
+    E --> F
+    F -- fails --> G[LRCLIB<br/>synced / plain fallback]
+    F --> H[Pillow<br/>frame layout]
+    G --> H
+    H --> I[ffmpeg<br/>encode + mux audio]
+    I --> J([🎬 1080×1920 MP4<br/>lyric video])
+```
+
+Each failure path produces a clear job error — never a crash or a blank video.
+
 ## What It Does
 
 - Accepts a Spotify track URL
