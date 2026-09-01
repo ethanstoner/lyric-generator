@@ -48,9 +48,11 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Lyric Video Generator", lifespan=lifespan)
 
+# The frontend is served from this same origin, so only local origins need to
+# be allowed. A wildcard would let any site you visit drive your local queue.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origin_regex=r"http://(localhost|127\.0\.0\.1)(:\d+)?",
     allow_methods=["*"],
     allow_headers=["*"],
 )
